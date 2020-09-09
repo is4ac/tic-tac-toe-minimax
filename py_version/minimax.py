@@ -11,6 +11,8 @@ using Python.
 This software is available under GPL license.
 Author: Clederson Cruz
 Year: 2017
+Edited: Isaac Sung
+Year: 2020
 License: GNU GENERAL PUBLIC LICENSE (GPL)
 """
 
