@@ -74,11 +74,13 @@ def game_over(state):
     return wins(state, HUMAN) or wins(state, COMP)
 
 
-def empty_cells(state):
+def actions(state):
     """
-    Each empty cell will be added into cells' list
+    Each potential next action will be added into 
+    cells' list
     :param state: the state of the current board
-    :return: a list of empty cells
+    :return: a list of potential actions in the
+    form of x, y locations
     """
     cells = []
 
@@ -97,7 +99,7 @@ def valid_move(x, y):
     :param y: Y coordinate
     :return: True if the board[x][y] is empty
     """
-    if [x, y] in empty_cells(board):
+    if [x, y] in actions(board):
         return True
     else:
         return False
@@ -135,8 +137,8 @@ def minimax(state, depth, player):
         score = evaluate(state)
         return [-1, -1, score]
 
-    for cell in empty_cells(state):
-        x, y = cell[0], cell[1]
+    for action in actions(state):
+        x, y = action[0], action[1]
         state[x][y] = player
         score = minimax(state, depth - 1, -player)
         state[x][y] = 0
@@ -192,7 +194,7 @@ def ai_turn(c_choice, h_choice):
     :param h_choice: human's choice X or O
     :return:
     """
-    depth = len(empty_cells(board))
+    depth = len(actions(board))
     if depth == 0 or game_over(board):
         return
 
@@ -218,7 +220,7 @@ def human_turn(c_choice, h_choice):
     :param h_choice: human's choice X or O
     :return:
     """
-    depth = len(empty_cells(board))
+    depth = len(actions(board))
     if depth == 0 or game_over(board):
         return
 
@@ -288,7 +290,7 @@ def main():
             print('Bad choice')
 
     # Main loop of this game
-    while len(empty_cells(board)) > 0 and not game_over(board):
+    while len(actions(board)) > 0 and not game_over(board):
         if first == 'N':
             ai_turn(c_choice, h_choice)
             first = ''
